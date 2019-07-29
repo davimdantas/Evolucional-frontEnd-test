@@ -1,0 +1,29 @@
+const port = 3005;
+
+// const bodyParser = require('body-parser');
+var express = require('express')
+, cors = require('cors')
+, server = express();
+
+server.use(cors());
+
+// const server = express();
+const schoolService = require('./school_service');
+server.get('/get_all_students', schoolService.findAllStudents);
+server.get('/get_student/:id', schoolService.findStudent);
+// server.post('/update_student/:id/:name/:class/:degree', schoolService.updateStudent);
+// server.post('/update_student', schoolService.updateStudent);
+server.post('/update_student/:id/:name/:class/:degree', schoolService.updateStudent);
+// server.get("/url", (req, res, next) => {
+//     res.json(["Tony","Lisa","Michael","Ginger","Food"]);
+// });
+
+// server.use(bodyParser.urlencoded({ limit: '50mb', extended: true, parameterLimit: 50000 }));
+// server.use(bodyParser.json());
+// server.use(express.static('uploads'));
+
+server.listen(port, function () {
+    console.log(`Backend is running on port ${port}.`);
+});
+
+// module.exports = server;

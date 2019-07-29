@@ -1,0 +1,73 @@
+
+<div class="limiter">
+    <div class="container-table100">
+        <div class="wrap-table100">
+            <p>
+                Search:
+                <input ng-model="$ctrl.query" />
+            </p>
+
+            <p>
+                Sort by:
+                <select ng-model="$ctrl.orderProp">
+                    <option value="name">Alphabetical</option>
+                    <option value="ra">RA</option>
+                </select>
+            </p>
+
+            <div class="table students">
+                <div class="row header">
+                    <div class="cell">
+                        Student Name
+                    </div>
+                    <div class="cell">
+                        Degree
+                    </div>
+                    <div class="cell">
+                        Class
+                    </div>
+                    <div class="cell">
+                        Actions
+                    </div>
+                </div>
+
+                <div
+                    class="row"
+                    ng-repeat="student in $ctrl.students | filter:$ctrl.query | orderBy:$ctrl.orderProp"
+                >
+                    <div class="cell" data-title="Student Name">
+                        {{ student.name }}
+                    </div>
+                    <div class="cell" data-title="Degree">
+                        <!-- {{ $ctrl.class_Name(student.degreeId) }} -->
+                        {{ student.degree_name }}
+                    </div>
+                    <div class="cell" data-title="Class">
+                        <!-- {{$ctrl.class_Name(student.classId)}} -->
+                        {{ student.class_name }}
+                        <!-- sdds -->
+                    </div>
+
+                    <div class="cell" data-title="Actions">
+                        <div class="btn-group" role="group" aria-label="...">
+                            <button
+                                type="button"
+                                class="btn btn-primary"
+                                ng-click="$ctrl.editRecord(student)"
+                            >
+                                <ion-icon name="create"></ion-icon>
+                            </button>
+                            <button
+                                type="button"
+                                class="btn btn-danger"
+                                ng-click="deletRecord(student.id)"
+                            >
+							<ion-icon name="trash"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

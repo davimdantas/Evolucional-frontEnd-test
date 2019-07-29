@@ -1,0 +1,115 @@
+<div class="clearfix" id="edit-modal-user-views">
+    <div class="modal-header model-grey-color">
+        <h4 class="modal-title">Edit Student : {{ student.name }}</h4>
+    </div>
+
+    <!-- <div class="col-md-10">
+        aqui
+        <ul class="phones">
+            <li ng-repeat="class in classes ">
+                2
+                <p>{{ class }}</p>
+            </li>
+        </ul>
+    </div> -->
+
+    <div class="modal-body">
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <div class=" input-group col-sm-12">
+                    <label
+                        for="name"
+                        class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label"
+                    >
+                        Name:
+                    </label>
+                    <input
+                        id="name"
+                        name="name"
+                        type="text"
+                        ng-model="student.name"
+                        placeholder="Name"
+                        class="form-control col-xl-9 col-lg-8 col-md-8 col-sm-7"
+                    />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class=" input-group col-sm-12">
+                    <label
+                        for="degree_name"
+                        class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label"
+                    >
+                        Degree:
+                    </label>
+
+                    
+                    <select
+                        name="degree_name"
+                        id="degree_name"
+                        ng-options="option.name for option in degrees track by option.id"
+                        ng-model="degree_selected"
+                        ></select>
+                    <!-- <select
+                        id="degree_name"
+                        name="degree_name"
+                        required
+                        type="text"
+                        ng-model="degrees"
+                        placeholder="Degree"
+                        class="form-control col-xl-9 col-lg-8 col-md-8 col-sm-7"
+                    >
+                        <option
+                            ng-repeat="degree in degrees  | filter:query | orderBy:orderProp"
+                            value="{{ degree.id }} "
+                            >{{ degree.name }}</option
+                        >
+                    </select> -->
+                    <!-- <input
+                        id="degree_name"
+                        name="degree_name"
+                        type="text"
+                        ng-model="student.degree_name"
+                        placeholder="Degree"
+                        class="form-control col-xl-9 col-lg-8 col-md-8 col-sm-7"
+                    /> -->
+                </div>
+            </div>
+            <div class="form-group">
+                <div class=" input-group col-sm-12">
+                    <label
+                        for="class_name"
+                        class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label"
+                    >
+                        Class:
+                    </label>
+                    <select
+                        name="class_name"
+                        id="class_name"
+                        ng-options="option.name for option in classes track by option.id"
+                        ng-model="class_selected"
+                    ></select>
+                    <!-- <select
+                        id="class_name"
+                        required
+                        ng-model="class_selected"
+                        class="form-control col-xl-9 col-lg-8 col-md-8 col-sm-7"
+                    >
+                        <option
+                            ng-repeat="class in classes"
+                            value="{{ class.id }}"
+                            >{{ class.name }}</option
+                        > -->
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer model-grey-color">
+        <button class="btn btn-success" ng-click="updateStudent()">
+            <ion-icon name="save"></ion-icon>Update
+        </button>
+        <button class="btn btn-danger" ng-click="cancelModal()">
+            <ion-icon name="close"></ion-icon>Close
+        </button>
+    </div>
+</div>

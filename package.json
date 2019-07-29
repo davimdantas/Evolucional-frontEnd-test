@@ -9,6 +9,7 @@
     "angular-animate": "1.7.x",
     "angular-resource": "1.7.x",
     "angular-route": "1.7.x",
+    "angular-ui-bootstrap": "^2.5.6",
     "bootstrap": "4.3.x",
     "jquery": "3.4.x",
     "popper.js": "^1.15.0"
@@ -20,6 +21,7 @@
     "jasmine-core": "^3.3.0",
     "karma": "^4.2.0",
     "karma-chrome-launcher": "^3.0.0",
+    "karma-firefox-launcher": "^1.1.0",
     "karma-jasmine": "^2.0.1"
   },
   "scripts": {
