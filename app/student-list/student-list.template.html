@@ -1,17 +1,30 @@
-
 <div class="limiter">
+        <button class="btn btn-success" ng-click="$ctrl.createStudents()">
+                <ion-icon name="save"></ion-icon>Create Students
+            </button>
     <div class="container-table100">
         <div class="wrap-table100">
+                <canvas id="myChart"></canvas>
             <p>
-                Search:
+                Search by Name:
                 <input ng-model="$ctrl.query" />
             </p>
 
             <p>
+                Search by Class:
+                <input ng-model="$ctrl.query1" />
+            </p>
+
+            <p>
+                Search by Degree:
+                <input ng-model="$ctrl.query2" />
+            </p>
+            <p>
                 Sort by:
                 <select ng-model="$ctrl.orderProp">
                     <option value="name">Alphabetical</option>
-                    <option value="ra">RA</option>
+                    <option value="classId">Class</option>
+                    <option value="degreeId">Degree</option>
                 </select>
             </p>
 
@@ -33,7 +46,7 @@
 
                 <div
                     class="row"
-                    ng-repeat="student in $ctrl.students | filter:$ctrl.query | orderBy:$ctrl.orderProp"
+                    ng-repeat="student in $ctrl.students | filter:$ctrl.query | filter:$ctrl.query1 | filter:$ctrl.query2 | orderBy:$ctrl.orderProp"
                 >
                     <div class="cell" data-title="Student Name">
                         {{ student.name }}
@@ -57,13 +70,13 @@
                             >
                                 <ion-icon name="create"></ion-icon>
                             </button>
-                            <button
+                            <!-- <button
                                 type="button"
                                 class="btn btn-danger"
                                 ng-click="deletRecord(student.id)"
                             >
 							<ion-icon name="trash"></ion-icon>
-                            </button>
+                            </button> -->
                         </div>
                     </div>
                 </div>

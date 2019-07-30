@@ -51,7 +51,6 @@ editStudent.controller("EditStudentController" , function(
             name: student.degree_name
         };
 	});
-	let initial_state = angular.copy(student)
 
 	$scope.student = student;
 	
@@ -67,7 +66,8 @@ editStudent.controller("EditStudentController" , function(
 		else { 
 			student.classId = $scope.class_selected.id
 			student.degreeId = $scope.degree_selected.id
-			$scope.$close('update');
+			console.log('student agora:', student)
+			$scope.$close(student);
 		}
 		};
 	

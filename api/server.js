@@ -14,6 +14,7 @@ server.get('/get_student/:id', schoolService.findStudent);
 // server.post('/update_student/:id/:name/:class/:degree', schoolService.updateStudent);
 // server.post('/update_student', schoolService.updateStudent);
 server.post('/update_student/:id/:name/:class/:degree', schoolService.updateStudent);
+server.get('/createStudents', schoolService.createStudents);
 // server.get("/url", (req, res, next) => {
 //     res.json(["Tony","Lisa","Michael","Ginger","Food"]);
 // });
