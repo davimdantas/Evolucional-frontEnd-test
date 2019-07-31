@@ -26,24 +26,35 @@ angular.module("studentList").component("studentList", {
             let students = this.students;
             let classes = this.classes;
             let degrees = this.degrees;
-            let degrees_count = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9:0, 10: 0, 11:0, 12: 0, 13: 0 };
+            let degrees_count = {
+                1: 0,
+                2: 0,
+                3: 0,
+                4: 0,
+                5: 0,
+                6: 0,
+                7: 0,
+                8: 0,
+                9: 0,
+                10: 0,
+                11: 0,
+                12: 0,
+                13: 0
+            };
             let degrees_distribution = [];
             // for (let i = 0; i < this.students.length; i++) {
             //     const student = this.students[i];
             //     console.log('degrees_coun :', degrees_count[student.degreeId] )
             //     degrees_count[student.degreeId]  ++
             // }
-        //   this.createStudents() = function() {
-        //       console.log('chamou')
-        //         this.teste = Student.creatN()
-        //         console.log('this.teste:', this.teste)
-        // }
+            //   this.createStudents() = function() {
+            //       console.log('chamou')
+            //         this.teste = Student.creatN()
+            //         console.log('this.teste:', this.teste)
+            // }
+            let label_char = [];
+            let chart;
 
-     
-
-        
-
-            
             this.students.$promise.then(function() {
                 for (let i = 0; i < students.length; i++) {
                     const student = students[i];
@@ -70,7 +81,6 @@ angular.module("studentList").component("studentList", {
                     }
                 }
 
-         
                 console.log("degrees_count:", degrees_count);
 
                 for (const key in degrees_count) {
@@ -82,18 +92,17 @@ angular.module("studentList").component("studentList", {
                 }
                 console.log("degrees_distribution:", degrees_distribution);
 
-                let label_char = []
+                
 
                 for (let i = 0; i < degrees.length; i++) {
                     label_char.push(degrees[i].name);
-                    
                 }
 
                 var ctx = document.getElementById("myChart").getContext("2d");
-                var chart = new Chart(ctx, {
+                chart = new Chart(ctx, {
                     // The type of chart we want to create
                     type: "bar",
-    
+
                     // The data for our dataset
                     data: {
                         labels: label_char,
@@ -106,30 +115,79 @@ angular.module("studentList").component("studentList", {
                             }
                         ]
                     },
-    
+
                     // Configuration options go here
                     options: {}
                 });
-
-                
             });
-
-    
-
-
 
             this.createStudents = function() {
                 let creatingStudents = Student.creatN();
-                // creatingStudents.$promise.then(function() { 
-                //     console.log('students:', students)
-                //     students = creatingStudents
-                // })
+                degrees_count = {
+                    1: 0,
+                    2: 0,
+                    3: 0,
+                    4: 0,
+                    5: 0,
+                    6: 0,
+                    7: 0,
+                    8: 0,
+                    9: 0,
+                    10: 0,
+                    11: 0,
+                    12: 0,
+                    13: 0
+                };
+                degrees_distribution = [];
+
+                creatingStudents.$promise.then(function() {
+
+                    for (let i = 0; i < creatingStudents.length; i++) {
+                        const student = creatingStudents[i];
+    
+                        degrees_count[student.degreeId]++;
+    
+                        for (let i = 0; i < classes.classes.length; i++) {
+                            const class_object = classes.classes[i];
+                            if (class_object.id == student.classId) {
+                                student.class_name = class_object.name;
+                                break;
+                            }
+                        }
+                        for (let i = 0; i < degrees.length; i++) {
+                            const degree = degrees[i];
+                            if (degree.id == student.degreeId) {
+                                student.degree_name = degree.name;
+                                break;
+                            }
+                        }
+                    }
+    
+                    console.log("degrees_count:", degrees_count);
+    
+                    for (const key in degrees_count) {
+                        if (degrees_count.hasOwnProperty(key)) {
+                            const element = degrees_count[key];
+                            console.log("element:", element);
+                            degrees_distribution.push(element);
+                        }
+                    }
+                    console.log("degrees_distribution:", degrees_distribution);
+                    chart.data
+                    console.log('chart.data:', chart.data.datasets[0])
+                    chart.data.datasets[0].data = degrees_distribution
+    
+                    
+                    chart.update()
+                 
+                })
                 this.students = creatingStudents;
-        
+
+               
+               
             };
 
             this.editRecord = function(id) {
-                
                 // let initial_state = angular.copy(id);
                 // let initial_state = angular.copy(id);
                 let initial_state = id;
@@ -151,7 +209,7 @@ angular.module("studentList").component("studentList", {
                         if (!response) {
                             console.log("id antigo:", id);
                         } else if (response) {
-                            angular.copy(response, initial_state)
+                            angular.copy(response, initial_state);
                             console.log("initial_state antigo:", initial_state);
                             let student_selected = Student.updateStudent(
                                 {

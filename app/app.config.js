@@ -8,6 +8,9 @@ angular.
         when('/students', {
           template: '<student-list></student-list>'
         }).
+        when('/teachers', {
+          template: '<teacher-list></teacher-list>'
+        }).
         when('/students/id', {
           template: '<edit-student></edit-student>'
         }).

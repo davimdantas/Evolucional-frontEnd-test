@@ -45,11 +45,12 @@
                 </div>
 
                 <div
+               
                     class="row"
-                    ng-repeat="student in $ctrl.students | filter:$ctrl.query | filter:$ctrl.query1 | filter:$ctrl.query2 | orderBy:$ctrl.orderProp"
+                    ng-repeat="student in $ctrl.students  | filter:$ctrl.query1 | filter:$ctrl.query2 | orderBy:$ctrl.orderProp"
                 >
                     <div class="cell" data-title="Student Name">
-                        {{ student.name }}
+                        {{ student.name | filter:$ctrl.query }}
                     </div>
                     <div class="cell" data-title="Degree">
                         <!-- {{ $ctrl.class_Name(student.degreeId) }} -->

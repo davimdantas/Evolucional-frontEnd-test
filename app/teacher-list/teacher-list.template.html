@@ -1,0 +1,108 @@
+<div class="limiter">
+    <div class="container-table100">
+        <div class="wrap-table100">
+            <p>
+                Search by Name teass:
+                <input ng-model="$ctrl.query" />
+            </p>
+
+            <p>
+                Search by Class:
+                <input ng-model="$ctrl.query1" />
+            </p>
+
+            <p>
+                Search by Degree:
+                <input ng-model="$ctrl.query2" />
+            </p>
+            <p>
+                Sort by:
+                <select ng-model="$ctrl.orderProp">
+                    <option value="name">Alphabetical</option>
+                    <option value="classId">Class</option>
+                    <option value="degreeId">Degree</option>
+                </select>
+            </p>
+
+            <!-- <div class="table teachers">
+                <div class="row header">
+                    <div class="cell">
+                        Teacher Name
+                    </div>
+                    <div class="cell">
+                        Matter
+                    </div>
+                </div>
+
+                <div class="row"
+                    ng-repeat="teacher in $ctrl.teachers | filter:$ctrl.query | filter:$ctrl.query1 | filter:$ctrl.query2 | orderBy:$ctrl.orderProp">
+                    <div class="cell" data-title="Student Name">
+                        {{ teacher.name }}
+                    </div>
+                    <div class="cell" data-title="Degree">
+                        {{ teacher.matterId }}
+                    </div>
+                    <div class="row"
+                        ng-repeat="degree in teacher.degress | filter:$ctrl.query | filter:$ctrl.query1 | filter:$ctrl.query2 | orderBy:$ctrl.orderProp">
+                        <div class="cell" data-title="Degree">
+                            {{ degree.degree_name }}
+                        </div>
+                    </div>
+                    <div class="cell" data-title="Actions">
+                        <div class="btn-group" role="group" aria-label="...">
+                            <button type="button" class="btn btn-primary" ng-click="$ctrl.editRecord(teacher)">
+                                <ion-icon name="create"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+
+            <!-- Division -->
+            <table class="table main_table teachers">
+
+
+                <tr class="row header">
+                    <th>Teacher</th>
+                    <th>Matter</th>
+                    <th>Relation</th>
+                </tr>
+
+                <tbody style="background: #fff;"
+                    ng-repeat="teacher in $ctrl.teachers | filter:$ctrl.query | filter:$ctrl.query1  | orderBy:$ctrl.orderProp">
+                    <td class="teacher_name">{{teacher.name }}</td>
+                    <!-- <td>{{teacher.matterId}}</td> -->
+                    <td>{{$ctrl.mattersMap[teacher.matterId]}}</td>
+
+
+                    <!-- ng-if="teacher.degress.length > 0" -->
+                    <td class="subTable"  ng-if="teacher.degress.length > 0" ->
+                        <table cellpadding="0" cellspacing="0">
+                            <tr class="subTable_header">
+                                <th>Degree</th>
+                                <th>Classes</th>
+                            </tr>
+                            <tbody
+                                ng-repeat="degree in teacher.degress | filter:$ctrl.query2 | orderBy:$ctrl.orderProp">
+                                <tr >
+                                    <td>{{$ctrl.degreesMap[degree.degreeId ]}}</td>
+                                    <td class="class_name" >{{degree.classes | Demofilter:$ctrl.classesMap}}</td>
+                                    <!-- <td>{{degree.classes }}</td> -->
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td ng-if="!(teacher.degress.length > 0)" >-</td>
+                    
+                    </tr>
+                </tbody>
+
+
+
+            </table>
+
+
+
+        </div>
+    </div>
+</div>

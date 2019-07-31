@@ -9,6 +9,20 @@ const LastId = require("./collections/lastId.json");
 module.exports.findAllStudents = function(req, res, next) {
     res.json(Student);
 };
+
+module.exports.findAllTeachers = function(req, res, next) {
+    console.log('Teacher:', Teacher)
+    res.json(Teacher);
+};
+
+module.exports.findAllRelationships = function(req, res, next) {
+    console.log('Realationship:', Realationship)
+    res.json(Realationship);
+};
+module.exports.findAllMatters = function(req, res, next) {
+    console.log('Matter:', Matter)
+    res.json(Matter);
+};
 module.exports.findStudent = function(req, res, next) {
     // console.log('req:', req.body)
     // console.log('req pa :', req.params)

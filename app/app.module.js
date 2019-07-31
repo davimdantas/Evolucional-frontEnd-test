@@ -6,9 +6,9 @@ angular.module('frontEndTestApp', [
   'ngRoute',
   'core',
   'studentList',
+  'teacherList',
   'editStudent',
-  'ui.bootstrap',
-  'putserviceApp'
+  'ui.bootstrap'
 ]);
 
 // frontEndTestApp.controller('EditStudentCoddntroller',

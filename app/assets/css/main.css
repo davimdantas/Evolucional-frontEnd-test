@@ -231,13 +231,45 @@ iframe {
   cursor: pointer;
 }
 
+tr td.subTable {
+  padding: 0
+}
+
+tr td.subTable  .subTable_header th{
+  border: 0;
+}
+table {
+  width: 100%;
+  table-layout: auto;
+  border-collapse: collapse; 
+}
+
+.teachers th, .teachers td {
+  text-align: center;
+}
+/* .teachers td {
+  text-align: center;
+} */
+
 @media (max-width: 768px) {
+  table.main_table  {
+    margin-top: 45px; 
+    font-size: 13px;
+  }
   .row {
-    border-bottom: 1px solid #f2f2f2;
     padding-bottom: 18px;
     padding-top: 30px;
     padding-right: 15px;
     margin: 0;
+  }
+
+  .teacher_name {
+    margin-top: 15px;
+    font-weight: bold;
+  }
+
+  .class_name {
+    text-align: right;
   }
   
   .row .cell {
@@ -250,15 +282,59 @@ iframe {
     padding-left: 30px;
   }
   
-  .row .cell {
+  /* .row .cell {
     font-family: Poppins-Regular;
     font-size: 18px;
     color: #555555;
     line-height: 1.2;
     font-weight: unset !important;
-  }
+  } */
 
   .table, .row, .cell {
     width: 100% !important;
   }
+
+  table, thead, tbody, th, td, tr { 
+		display: block; 
+	}
+	
+	/* Hide table headers (but not display: none;, for accessibility) */
+	/* thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+	 */
+	
+	td { 
+		/* Behave  like a "row" */
+		position: relative;
+		padding-left: 50%; 
+	}
+
+  tr.subTable_header, tr.header {
+    display: none;
+  }
+  table.table tbody {
+    border-top: 0;
+  }
+  /* .subTable table {
+    display: flex;
+    flex-direction: row;
+  } */
+
+  /* th { 
+    color: white; 
+    font-weight: bold; 
+  }
+  td, th { 
+    padding: 6px; 
+    border: 1px solid #ccc; 
+    text-align: left; 
+  } */
+  .class_name:before { content: "Class: "; } 
+  /* td:nth-of-type(1):before { content: "Name"; }
+	td:nth-of-type(2):before { content: "Degree"; } */
+	/* td:nth-of-type(3):before { content: "Job Title"; }
+	td:nth-of-type(4):before { content: "Favorite Color"; } */
 }
