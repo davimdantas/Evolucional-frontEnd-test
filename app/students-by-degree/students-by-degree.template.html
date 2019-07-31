@@ -1,0 +1,39 @@
+<div class="clearfix" id="edit-modal-user-views">
+    <div class="modal-header model-grey-color">
+        <h4 class="modal-title">Students in : {{ degree_name }}</h4>
+    </div>
+
+ 
+
+    <pre class="table students" style="margin-left: 15px" ng-if="students.length == 0">There aren't students in this degree</pre>
+    <div class="modal-body">
+            <div class="table students" ng-if="students.length > 0">
+                    <div class="row header">
+                        <div class="cell">
+                            Student Name
+                        </div>
+                        <div class="cell">
+                            Class
+                        </div>
+                    </div>
+    
+                    <div
+                   
+                        class="row"
+                        ng-repeat="student in students  | orderBy:orderProp"
+                    >
+                        <div class="cell" data-title="Student Name">
+                            {{ student.name }}
+                        </div>
+                        <div class="cell" data-title="Class">
+                            {{ student.class_name }}
+                        </div>
+                    </div>
+                </div>
+    </div>
+    <div class="modal-footer model-grey-color">
+        <button class="btn btn-danger" ng-click="cancelModal()">
+            <ion-icon name="close"></ion-icon>Close
+        </button>
+    </div>
+</div>

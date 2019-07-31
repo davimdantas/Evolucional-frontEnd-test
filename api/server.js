@@ -14,6 +14,7 @@ server.get('/get_all_teachers', schoolService.findAllTeachers);
 server.get('/get_student/:id', schoolService.findStudent);
 server.get('/get_all_relationships', schoolService.findAllRelationships);
 server.get('/get_all_matters', schoolService.findAllMatters);
+server.get('/get_students_by_degree/:id', schoolService.getStudentsByDegreee);
 // server.post('/update_student/:id/:name/:class/:degree', schoolService.updateStudent);
 // server.post('/update_student', schoolService.updateStudent);
 server.post('/update_student/:id/:name/:class/:degree', schoolService.updateStudent);

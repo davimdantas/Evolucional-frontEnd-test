@@ -16,16 +16,31 @@ angular.module("studentList").component("studentList", {
             $scope
         ) {
             this.classes = School_class.query();
+            let classes = this.classes;
             // console.log('this.classes:', this.classes)
             // this.students = Student[0].query();
             // $scope.queryBy = '$';
             this.query1 = this.query;
             this.query2 = this.query;
             this.degrees = Degree.query();
-            this.students = Student.query();
-            let students = this.students;
-            let classes = this.classes;
             let degrees = this.degrees;
+            this.students = Student.query();
+            
+            this.degreesMap = {};
+            let degreesMap = this.degreesMap;
+            this.classesMap = {};
+            let classesMap = this.classesMap;
+
+            this.degrees.$promise.then(function() {
+                degrees.forEach(item => (degreesMap[item.id] = item.name));
+            });
+            this.classes.$promise.then(function() {
+                classes.classes.forEach(
+                    item => (classesMap[item.id] = item.name)
+                );
+            });
+
+            let students = this.students;
             let degrees_count = {
                 1: 0,
                 2: 0,
@@ -65,20 +80,21 @@ angular.module("studentList").component("studentList", {
                     );
                     degrees_count[student.degreeId]++;
 
-                    for (let i = 0; i < classes.classes.length; i++) {
-                        const class_object = classes.classes[i];
-                        if (class_object.id == student.classId) {
-                            student.class_name = class_object.name;
-                            break;
-                        }
-                    }
-                    for (let i = 0; i < degrees.length; i++) {
-                        const degree = degrees[i];
-                        if (degree.id == student.degreeId) {
-                            student.degree_name = degree.name;
-                            break;
-                        }
-                    }
+                    student.class_name = classesMap[student.classId];
+                    student.degree_name = degreesMap[student.degreeId];
+                    // for (let i = 0; i < classes.classes.length; i++) {
+                    //     const class_object = classes.classes[i];
+                    //     if (class_object.id == student.classId) {
+                    //         break;
+                    //     }
+                    // }
+                    // for (let i = 0; i < degrees.length; i++) {
+                    //     const degree = degrees[i];
+                    //     if (degree.id == student.degreeId) {
+                    //         student.degree_name = degree.name;
+                    //         break;
+                    //     }
+                    // }
                 }
 
                 console.log("degrees_count:", degrees_count);
@@ -144,23 +160,9 @@ angular.module("studentList").component("studentList", {
 
                     for (let i = 0; i < creatingStudents.length; i++) {
                         const student = creatingStudents[i];
-    
                         degrees_count[student.degreeId]++;
-    
-                        for (let i = 0; i < classes.classes.length; i++) {
-                            const class_object = classes.classes[i];
-                            if (class_object.id == student.classId) {
-                                student.class_name = class_object.name;
-                                break;
-                            }
-                        }
-                        for (let i = 0; i < degrees.length; i++) {
-                            const degree = degrees[i];
-                            if (degree.id == student.degreeId) {
-                                student.degree_name = degree.name;
-                                break;
-                            }
-                        }
+                        student.class_name = classesMap[student.classId];
+                        student.degree_name = degreesMap[student.degreeId];
                     }
     
                     console.log("degrees_count:", degrees_count);
@@ -207,24 +209,21 @@ angular.module("studentList").component("studentList", {
                 modalInstance.result.then(
                     function(response) {
                         if (!response) {
-                            console.log("id antigo:", id);
                         } else if (response) {
+    
+                            response.class_name = classesMap[response.classId];
+                            response.degree_name = degreesMap[response.degreeId];
                             angular.copy(response, initial_state);
-                            console.log("initial_state antigo:", initial_state);
                             let student_selected = Student.updateStudent(
                                 {
                                     id: initial_state.id,
                                     name: initial_state.name,
                                     class: initial_state.classId,
-                                    degree: initial_state.degreeId
+                                    degree: initial_state.degreeId,
                                 },
                                 initial_state,
                                 function(response) {
-                                    console.log("response:", response);
-                                    console.log(
-                                        "this.student_selected:",
-                                        student_selected
-                                    );
+                                  
                                 }
                             );
                         }
@@ -236,13 +235,7 @@ angular.module("studentList").component("studentList", {
                 //  });
             };
 
-            this.otherFunction = function() {
-                console.log("otherFunction");
-                //DO SOME STUFF
-                //....
-                //THEN CLOSE MODAL HERE
-                modalInstance.close();
-            };
+    
 
             // this.students = function() {
             //     //This function is sort of private constructor for controller

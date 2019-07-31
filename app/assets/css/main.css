@@ -246,10 +246,18 @@ table {
 
 .teachers th, .teachers td {
   text-align: center;
+  vertical-align: middle;
 }
 /* .teachers td {
   text-align: center;
 } */
+.show_students {
+  display: inline;
+}
+.show_students button {
+  border: 0px;
+  
+}
 
 @media (max-width: 768px) {
   table.main_table  {

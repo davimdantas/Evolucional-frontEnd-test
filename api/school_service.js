@@ -11,17 +11,24 @@ module.exports.findAllStudents = function(req, res, next) {
 };
 
 module.exports.findAllTeachers = function(req, res, next) {
-    console.log('Teacher:', Teacher)
     res.json(Teacher);
 };
 
 module.exports.findAllRelationships = function(req, res, next) {
-    console.log('Realationship:', Realationship)
     res.json(Realationship);
 };
 module.exports.findAllMatters = function(req, res, next) {
-    console.log('Matter:', Matter)
     res.json(Matter);
+};
+module.exports.getStudentsByDegreee = function(req, res, next) {
+    let degree_id = req.params.id;
+    console.log('degree_id:', degree_id)
+    let students = []
+    for (let i = 0; i < Student.length; i++) {
+        const student = Student[i];
+        if (student.degreeId == degree_id) students.push(student)
+    }
+    res.json(students);
 };
 module.exports.findStudent = function(req, res, next) {
     // console.log('req:', req.body)
@@ -33,10 +40,6 @@ module.exports.findStudent = function(req, res, next) {
     }
 };
 module.exports.updateStudent = function(req, res, next) {
-    console.log("req body:", req.body);
-    console.log("req params:", req.params);
-    console.log("req params:", req.params);
-    console.log("req query:", req.query);
     let id_to_find = req.params.id;
     for (let i = 0; i < Student.length; i++) {
         const student = Student[i];

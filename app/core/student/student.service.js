@@ -20,6 +20,11 @@ angular.module("core.student").factory("Student",
                     url: 'http://localhost:3005/get_student/:id',
                     isArray: false,
                 },
+                getStudentsByDegree: {
+                    method: "GET",
+                    url: 'http://localhost:3005/get_students_by_degree/:id',
+                    isArray: true,
+                },
                 creatN: {
                     method: "GET",
                     url: 'http://localhost:3005/createStudents',

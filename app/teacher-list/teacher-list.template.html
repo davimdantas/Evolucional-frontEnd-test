@@ -2,7 +2,7 @@
     <div class="container-table100">
         <div class="wrap-table100">
             <p>
-                Search by Name teass:
+                Search by Name:
                 <input ng-model="$ctrl.query" />
             </p>
 
@@ -18,9 +18,10 @@
             <p>
                 Sort by:
                 <select ng-model="$ctrl.orderProp">
-                    <option value="name">Alphabetical</option>
-                    <option value="classId">Class</option>
-                    <option value="degreeId">Degree</option>
+                    <option value="teacher_name">Name</option>
+                    <option value="matter_name">Matter</option>
+                    <option value="degree_name">Degree</option>
+                    <option value="class_name">Class</option>
                 </select>
             </p>
             
@@ -74,7 +75,8 @@
 
                 <tbody style="background: #fff;"
                     ng-repeat="teacher in $ctrl.relationships | filter:$ctrl.query | filter:$ctrl.query1  | orderBy:$ctrl.orderProp">
-                    <td class="teacher_name">{{teacher.teacher_name }}</td>
+                    <td class="teacher_name">{{teacher.teacher_name }}
+                    </td>
                     <td>{{teacher.matter_name }}</td>
                     <!-- <td>{{teacher.degrees.length}}</td> -->
 
@@ -89,7 +91,19 @@
                             <tbody
                                 ng-repeat="degree in teacher.degrees | filter:$ctrl.query2 | orderBy:$ctrl.orderProp">
                                 <tr >
-                                    <td>{{degree.degree_name }}</td>
+                                    <td>{{degree.degree_name }}
+                           
+                                            <div class="show_students" >
+                                                    <button
+                                                    id="show_students"
+                                                        type="button"
+                                                        class="btn btn-primary"
+                                                        ng-click="$ctrl.showStudents(degree.degreeId, degree.degree_name)"
+                                                    >
+                                                        <ion-icon name="book"></ion-icon>
+                                                    </button>
+                                                </div>
+                                    </td>
                                     <td class="class_name" >{{degree.classes_names}}</td>
                                     <!-- <td>{{degree.classes }}</td> -->
                                 </tr>

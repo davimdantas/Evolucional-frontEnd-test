@@ -9,14 +9,6 @@ let editStudent = angular.module("editStudent").component("editStudent", {
 		"Degree",
 		'$uibModal',
         function EditStudentController(Student, School_class, Degree) {
-            // this.classes = School_class.query();
-            // classes = this.classes
-            // this.classes.$promise.then(function() {
-            // 	console.log('classes:', classes)
-
-            // });
-
-            // console.log("this.classes:", this.classes);
             this.orderProp = "name";
         }
     ]

@@ -88,126 +88,53 @@ angular.module("teacherList").component("teacherList", {
                 console.log('relationship:', relationships)
             });
 
-            // console.log('teachers:', teachers)
-            // console.log('classes:', classes)
-            // this.classessMap = {};
-            console.log("degreesMap:", this.degreesMap);
-            // classes.classes.forEach(item => (classessMap[item.id] = item.name));
-
-            // this.teachers.$promise.then(function() {
-            //     relationships.$promise.then(function() {
-            //         for (let i = 0; i < teachers.length; i++) {
-            //             const teacher = teachers[i];
-            //             for (
-            //                 let index = 0;
-            //                 index < relationships.length;
-            //                 index++
-            //             ) {
-            //                 const relationship = relationships[index];
-            //                 // console.log('relationship:', relationship)
-            //                 if (teacher.id == relationship.teacherId) {
-            //                     teacher.degress = relationship.degrees;
-            //                     teacher.matterId = relationship.matterId;
-            //                     break;
-            //                 }
-            //             }
-            //             // console.log('teacher:', teacher)
-            //         }
-            //     });
-            // });
-
-            // this.editRecord = function(id) {
-
-            //     // let initial_state = angular.copy(id);
-            //     // let initial_state = angular.copy(id);
-            //     let initial_state = id;
-            //     console.log("idssssss:", id);
-            //     //    $http.get("/demos/api/v1/employees/?id="+id)
-            //     //  .then(function(response){
-            //     let modalInstance = $modal.open({
-            //         animation: false,
-            //         templateUrl: "edit-student/edit-student.template.html",
-            //         controller: "EditStudentController",
-            //         size: "",
-            //         resolve: {
-            //             student: angular.copy(initial_state)
-            //         }
-            //     });
-
-            //     modalInstance.result.then(
-            //         function(response) {
-            //             if (!response) {
-            //                 console.log("id antigo:", id);
-            //             } else if (response) {
-            //                 angular.copy(response, initial_state)
-            //                 console.log("initial_state antigo:", initial_state);
-            //                 let student_selected = Teacher.updateStudent(
-            //                     {
-            //                         id: initial_state.id,
-            //                         name: initial_state.name,
-            //                         class: initial_state.classId,
-            //                         degree: initial_state.degreeId
-            //                     },
-            //                     initial_state,
-            //                     function(response) {
-            //                         console.log("response:", response);
-            //                         console.log(
-            //                             "this.student_selected:",
-            //                             student_selected
-            //                         );
-            //                     }
-            //                 );
-            //             }
-            //         },
-            //         function() {
-            //             console.log("canceled");
-            //         }
-            //     );
-            //     //  });
-            // };
-
-            // this.teachers = function() {
-            //     //This function is sort of private constructor for controller
-            //     let students_querry = Teacher.query();
-            //     console.log("id:", id);
-            //     console.log("class:", this.classes.classes);
-            //     for (let i = 0; i < students_querry.length; i++) {
-            //         const student = students_querry[i];
-            //         for (let i = 0; i < this.classes.classes.length; i++) {
-            //             const element = this.classes.classes[i];
-            //             console.log("element.name:", element.name);
-            //             if (element.id == student.classId) {
-            //                 student.class_name = element.name;
-            //                 break;
-            //             }
-            //         }
-            //     }
-
-            //     return students_querry;
-            //     //Based on passed argument you can make a call to resource
-            //     //and initialize more objects
-            //     //$resource.getMeBond(007)
-            // };
+      
             this.orderProp = "name";
-            // this.class_Name = function(id) {
-            //     //This function is sort of private constructor for controller
-            //     console.log("id:", id);
-            //     console.log("class:", this.classes.classes);
-            //     let name;
-            //     for (let i = 0; i < this.classes.classes.length; i++) {
-            //         const element = this.classes.classes[i];
-            //         console.log("element.name:", element.name);
-            //         if (element.id == id) {
-            //             name = element.name;
-            //             break;
-            //         }
-            //     }
 
-            //     return name;
-            //     //Based on passed argument you can make a call to resource
-            //     //and initialize more objects
-            //     //$resource.getMeBond(007)
-            // };
+
+            this.showStudents = function(id, name) {
+                let modalInstance = $modal.open({
+                    animation: false,
+                    templateUrl: "students-by-degree/students-by-degree.template.html",
+                    controller: "studentByDegree",
+                    size: "",
+                    resolve: {
+                        degree : function () {
+                            return [id, name];
+                        }
+                    }
+                });
+
+                modalInstance.result.then(
+                    function(response) {
+                        if (!response) {
+                        } else if (response) {
+    
+                            response.class_name = classesMap[response.classId];
+                            response.degree_name = degreesMap[response.degreeId];
+                            angular.copy(response, initial_state);
+                            let student_selected = Student.updateStudent(
+                                {
+                                    id: initial_state.id,
+                                    name: initial_state.name,
+                                    class: initial_state.classId,
+                                    degree: initial_state.degreeId,
+                                },
+                                initial_state,
+                                function(response) {
+                                  
+                                }
+                            );
+                        }
+                    },
+                    function() {
+                        console.log("canceled");
+                    }
+                );
+                //  });
+            };
+
+         
         }
     ]
 });
