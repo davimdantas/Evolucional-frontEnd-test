@@ -17,25 +17,37 @@ angular.module("teacherList").component("teacherList", {
             Relationship,
             Matter,
             $modal,
-            $scope
+            $scope,
         ) {
             this.query1 = this.query;
             this.query2 = this.query;
-            this.teachers = Teacher.query();
-            this.classes = School_class.query();
-            let classes = this.classes;
-            this.degrees = Degree.query();
-            let degrees = this.degrees;
-            this.matters = Matter.query();
+            this.teachers =  Teacher.query();
+            let teachers = this.teachers;
+            this.matters =  Matter.query();
             let matters = this.matters;
+            this.classes =  School_class.query();
+            let classes = this.classes;
+            this.degrees =  Degree.query();
+            let degrees = this.degrees;
+            this.relationships =  Relationship.query();
+            let relationships = this.relationships;
+
             this.degreesMap = {};
             let degreesMap = this.degreesMap;
             this.mattersMap = {};
             let mattersMap = this.mattersMap;
             this.classesMap = {};
             let classesMap = this.classesMap;
+            this.teachersMap = {};
+            let teachersMap = this.teachersMap;
 
-            
+            // $q.all([
+            //     doQuery('billing'),
+            //     doQuery('shipping')
+            //  ]).then(function(data) { 
+
+            //  })            
+
             this.degrees.$promise.then(function() {
                 degrees.forEach(item => (degreesMap[item.id] = item.name));
             });
@@ -45,43 +57,64 @@ angular.module("teacherList").component("teacherList", {
             });
 
             this.classes.$promise.then(function() {
-                classes.classes.forEach(item => (classesMap[item.id] = item.name));
+                classes.classes.forEach(
+                    item => (classesMap[item.id] = item.name)
+                );
             });
 
+            this.teachers.$promise.then(function() {
+                teachers.forEach(item => (teachersMap[item.id] = item.name));
+            });
 
-     
+            this.relationships.$promise.then(function() {
+                for (let i = 0; i < relationships.length; i++) {
+                    const relationship = relationships[i];
+                    relationship.teacher_name =
+                        teachersMap[relationship.teacherId];
+                    console.log('mattersMap:', mattersMap)
+                    relationship.matter_name = mattersMap[relationship.matterId];
+                    for (let j = 0; j < relationship.degrees.length; j++) {
+                        const degree = relationship.degrees[j];
+                        console.log('degree:', degree)
+                        degree.degree_name = degreesMap[degree.degreeId];
+                        let classes_names = ''
+                        for (let l = 0; l < degree.classes.length; l++) {
+                            const school_class = degree.classes[l];
+                            classes_names += classesMap[school_class.classPosition || school_class.classId] + ' ';
+                        }
+                        degree.classes_names = classes_names;
+                    }
+                }
+                console.log('relationship:', relationships)
+            });
 
-            
-            this.relationships = Relationship.query();
-            let teachers = this.teachers;
-            let relationships = this.relationships;
             // console.log('teachers:', teachers)
             // console.log('classes:', classes)
             // this.classessMap = {};
             console.log("degreesMap:", this.degreesMap);
             // classes.classes.forEach(item => (classessMap[item.id] = item.name));
 
-            this.teachers.$promise.then(function() {
-                relationships.$promise.then(function() {
-                    for (let i = 0; i < teachers.length; i++) {
-                        const teacher = teachers[i];
-                        for (
-                            let index = 0;
-                            index < relationships.length;
-                            index++
-                        ) {
-                            const relationship = relationships[index];
-                            // console.log('relationship:', relationship)
-                            if (teacher.id == relationship.teacherId) {
-                                teacher.degress = relationship.degrees;
-                                teacher.matterId = relationship.matterId;
-                                break;
-                            }
-                        }
-                        // console.log('teacher:', teacher)
-                    }
-                });
-            });
+            // this.teachers.$promise.then(function() {
+            //     relationships.$promise.then(function() {
+            //         for (let i = 0; i < teachers.length; i++) {
+            //             const teacher = teachers[i];
+            //             for (
+            //                 let index = 0;
+            //                 index < relationships.length;
+            //                 index++
+            //             ) {
+            //                 const relationship = relationships[index];
+            //                 // console.log('relationship:', relationship)
+            //                 if (teacher.id == relationship.teacherId) {
+            //                     teacher.degress = relationship.degrees;
+            //                     teacher.matterId = relationship.matterId;
+            //                     break;
+            //                 }
+            //             }
+            //             // console.log('teacher:', teacher)
+            //         }
+            //     });
+            // });
 
             // this.editRecord = function(id) {
 

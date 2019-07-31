@@ -23,7 +23,11 @@
                     <option value="degreeId">Degree</option>
                 </select>
             </p>
+            
 
+            <!-- <div  ng-repeat="teacher in $ctrl.relationships ">
+                <div>{{teacher | json}}</div>
+            </div> -->
             <!-- <div class="table teachers">
                 <div class="row header">
                     <div class="cell">
@@ -43,7 +47,7 @@
                         {{ teacher.matterId }}
                     </div>
                     <div class="row"
-                        ng-repeat="degree in teacher.degress | filter:$ctrl.query | filter:$ctrl.query1 | filter:$ctrl.query2 | orderBy:$ctrl.orderProp">
+                        ng-repeat="degree in teacher.degrees | filter:$ctrl.query | filter:$ctrl.query1 | filter:$ctrl.query2 | orderBy:$ctrl.orderProp">
                         <div class="cell" data-title="Degree">
                             {{ degree.degree_name }}
                         </div>
@@ -69,30 +73,30 @@
                 </tr>
 
                 <tbody style="background: #fff;"
-                    ng-repeat="teacher in $ctrl.teachers | filter:$ctrl.query | filter:$ctrl.query1  | orderBy:$ctrl.orderProp">
-                    <td class="teacher_name">{{teacher.name }}</td>
-                    <!-- <td>{{teacher.matterId}}</td> -->
-                    <td>{{$ctrl.mattersMap[teacher.matterId]}}</td>
+                    ng-repeat="teacher in $ctrl.relationships | filter:$ctrl.query | filter:$ctrl.query1  | orderBy:$ctrl.orderProp">
+                    <td class="teacher_name">{{teacher.teacher_name }}</td>
+                    <td>{{teacher.matter_name }}</td>
+                    <!-- <td>{{teacher.degrees.length}}</td> -->
 
-
-                    <!-- ng-if="teacher.degress.length > 0" -->
-                    <td class="subTable"  ng-if="teacher.degress.length > 0" ->
+                    <!-- ng-if="teacher.degrees.length > 0" -->
+                   
+                    <td class="subTable"  ng-if="teacher.degrees.length > 0" ->
                         <table cellpadding="0" cellspacing="0">
                             <tr class="subTable_header">
                                 <th>Degree</th>
                                 <th>Classes</th>
                             </tr>
                             <tbody
-                                ng-repeat="degree in teacher.degress | filter:$ctrl.query2 | orderBy:$ctrl.orderProp">
+                                ng-repeat="degree in teacher.degrees | filter:$ctrl.query2 | orderBy:$ctrl.orderProp">
                                 <tr >
-                                    <td>{{$ctrl.degreesMap[degree.degreeId ]}}</td>
-                                    <td class="class_name" >{{degree.classes | Demofilter:$ctrl.classesMap}}</td>
+                                    <td>{{degree.degree_name }}</td>
+                                    <td class="class_name" >{{degree.classes_names}}</td>
                                     <!-- <td>{{degree.classes }}</td> -->
                                 </tr>
                             </tbody>
                         </table>
                     </td>
-                    <td ng-if="!(teacher.degress.length > 0)" >-</td>
+                    <td ng-if="!(teacher.degrees.length > 0)" >-</td>
                     
                     </tr>
                 </tbody>

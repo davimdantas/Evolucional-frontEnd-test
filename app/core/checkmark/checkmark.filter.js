@@ -15,8 +15,8 @@ custom_filter.filter("Demofilter", function() {
         try {
           let classes = '';
           for (let i = 0; i < input.length; i++) {
-            const scholl_class = input[i];
-            classes += map[scholl_class.classPosition || scholl_class.classId] + ' '
+            const school_class = input[i];
+            classes += map[school_class.classPosition || school_class.classId] + ' '
           }
          
             return classes;
