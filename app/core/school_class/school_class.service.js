@@ -5,7 +5,7 @@ angular.
   factory('School_class', ['$resource',
     function($resource) {
       // return $resource('assets/classes/:id', {}, {
-      return $resource('assets/classes.json', {}, {
+      return $resource('http://localhost:3005/get_all_classes', {}, {
         query: {
           method: 'GET',
           // params: {id: 'id'},

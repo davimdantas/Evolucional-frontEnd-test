@@ -5,7 +5,7 @@ angular.
   factory('Degree', ['$resource',
     function($resource) {
       // return $resource('assets/classes/:id', {}, {
-      return $resource('assets/degrees.json', {}, {
+      return $resource('http://localhost:3005/get_all_degrees', {}, {
         query: {
           method: 'GET',
           // params: {id: 'id'},

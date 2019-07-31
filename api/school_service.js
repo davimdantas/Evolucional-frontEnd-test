@@ -17,6 +17,12 @@ module.exports.findAllTeachers = function(req, res, next) {
 module.exports.findAllRelationships = function(req, res, next) {
     res.json(Realationship);
 };
+module.exports.findAllClasses = function(req, res, next) {
+    res.json(School_Class);
+};
+module.exports.findAllDegrees = function(req, res, next) {
+    res.json(Degree);
+};
 module.exports.findAllMatters = function(req, res, next) {
     res.json(Matter);
 };

@@ -46,8 +46,5 @@ angular.module("core.student").factory("Student",
         );
 
         return students;
-        //Based on passed argument you can make a call to resource
-        //and initialize more objects
-        //$resource.getMeBond(007)
     }
 );

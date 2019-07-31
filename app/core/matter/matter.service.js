@@ -16,8 +16,5 @@ angular.module("core.matter").factory("Matter",
         );
 
         return matter;
-        //Based on passed argument you can make a call to resource
-        //and initialize more objects
-        //$resource.getMeBond(007)
     }
 );
