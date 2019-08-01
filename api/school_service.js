@@ -29,7 +29,6 @@ module.exports.findAllMatters = function (req, res, next) {
 };
 module.exports.getStudentsByDegreee = function (req, res, next) {
     let degree_id = req.params.id;
-    console.log("degree_id:", degree_id);
     let students = [];
     for (let i = 0; i < Student.length; i++) {
         const student = Student[i];
@@ -38,8 +37,6 @@ module.exports.getStudentsByDegreee = function (req, res, next) {
     res.json(students);
 };
 module.exports.findStudent = function (req, res, next) {
-    // console.log('req:', req.body)
-    // console.log('req pa :', req.params)
     let id_to_find = req.params.id;
     for (let i = 0; i < Student.length; i++) {
         const student = Student[i];
@@ -51,11 +48,9 @@ module.exports.updateStudent = function (req, res, next) {
     for (let i = 0; i < Student.length; i++) {
         const student = Student[i];
         if (student.id == id_to_find) {
-            console.log("student:", student);
             student.name = req.params.name;
             student.classId = parseInt(req.params.class);
             student.degreeId = parseInt(req.params.degree);
-            console.log("student:", student);
             res.json(student);
         }
     }
@@ -68,12 +63,9 @@ module.exports.updateRelationship = function (req, res, next) {
         body += chunk.toString(); // convert Buffer to string
     });
     req.on("end", () => {
-        // console.log(body);
-        console.log("req:", req.body);
         let relationships = JSON.parse(body);
         let new_relationships = []
         let relationships_keys = Object.keys(relationships);
-        console.log('relationships_keys:', relationships_keys)
         for (let i = 0; i < relationships_keys.length; i++) {
             const relation = relationships[relationships_keys[i]];
             new_relationship = {};
@@ -87,7 +79,6 @@ module.exports.updateRelationship = function (req, res, next) {
 
             for (let j = 0; j < degrees_keys.length; j++) {
                 const school_degree = relation.degree_map[degrees_keys[j]];
-                console.log('school_degree:', school_degree)
                 new_degree = {};
                 new_degree.degreeId = school_degree.degreeId;
 
@@ -119,8 +110,6 @@ module.exports.updateRelationship = function (req, res, next) {
                     )
                 }
             }
-            // console.log("relationshi:", relationships_keys);
-            // console.log('new_relationships:', new_relationships)
             Relationship = new_relationships;
             res.json(new_relationships);
             res.end("ok");
