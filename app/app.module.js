@@ -8,6 +8,7 @@ angular.module('frontEndTestApp', [
   'studentList',
   'teacherList',
   'editStudent',
+  'editRelationship',
   'studentByDegree',
   'ui.bootstrap'
 ]);

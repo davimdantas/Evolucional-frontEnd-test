@@ -71,11 +71,9 @@ angular.module("teacherList").component("teacherList", {
                     const relationship = relationships[i];
                     relationship.teacher_name =
                         teachersMap[relationship.teacherId];
-                    console.log('mattersMap:', mattersMap)
                     relationship.matter_name = mattersMap[relationship.matterId];
                     for (let j = 0; j < relationship.degrees.length; j++) {
                         const degree = relationship.degrees[j];
-                        console.log('degree:', degree)
                         degree.degree_name = degreesMap[degree.degreeId];
                         let classes_names = ''
                         for (let l = 0; l < degree.classes.length; l++) {
@@ -85,7 +83,6 @@ angular.module("teacherList").component("teacherList", {
                         degree.classes_names = classes_names;
                     }
                 }
-                console.log('relationship:', relationships)
             });
 
       
@@ -101,6 +98,50 @@ angular.module("teacherList").component("teacherList", {
                     resolve: {
                         degree : function () {
                             return [id, name];
+                        }
+                    }
+                });
+
+                modalInstance.result.then(
+                    function(response) {
+                        if (!response) {
+                        } else if (response) {
+    
+                            response.class_name = classesMap[response.classId];
+                            response.degree_name = degreesMap[response.degreeId];
+                            angular.copy(response, initial_state);
+                            let student_selected = Student.updateStudent(
+                                {
+                                    id: initial_state.id,
+                                    name: initial_state.name,
+                                    class: initial_state.classId,
+                                    degree: initial_state.degreeId,
+                                },
+                                initial_state,
+                                function(response) {
+                                  
+                                }
+                            );
+                        }
+                    },
+                    function() {
+                        console.log("canceled");
+                    }
+                );
+                //  });
+            };
+
+            this.createRelationship = function(degreesMap, mattersMap, classesMap, teachersMap, relationships, teachers, matters) {
+                // let degreesMap = this.degreesMap; 
+                // console.log('degreesMap:', degreesMap)
+                let modalInstance = $modal.open({
+                    animation: false,
+                    templateUrl: "edit-relationship/edit-relationship.template.html",
+                    controller:"EditRelationshipController",
+                    size: "",
+                    resolve: {
+                        relationship_utils : function () {
+                            return {degreesMap: degreesMap, mattersMap: mattersMap, classesMap: classesMap, teachersMap: teachersMap, relationships: relationships, teachers: teachers, matters: matters};
                         }
                     }
                 });
