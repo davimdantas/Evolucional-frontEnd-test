@@ -40,8 +40,11 @@ editRelationship.controller("EditRelationshipController", function(
     $scope.matters = relationship_utils.matters;
     $scope.teachers = relationship_utils.teachers;
     $scope.classes = relationship_utils.classes;
-    $scope.relationship_map = {};
-    $scope.relationships.forEach(item => ($scope.relationship_map[item.teacherId] = item));
+    $scope.degrees = relationship_utils.degrees;
+    $scope.relationship_map = relationship_utils.relationship_map;
+    console.log('$scope.degrees:', $scope.degrees)
+    // $scope.relationship_map = {};
+    // $scope.relationships.forEach(item => ($scope.relationship_map[item.teacherId] = item));
 
     
     $scope.teacher_selected = {
@@ -129,7 +132,7 @@ editRelationship.controller("EditRelationshipController", function(
 
     // $scope.student = student;
 
-    $scope.updateStudent = function() {
+    $scope.updateRelationships = function() {
         // console.log('this.student.name:', this.student.name)
         if (!angular.isDefined(this.student.name) || this.student.name === "") {
             alert("student name is empty");

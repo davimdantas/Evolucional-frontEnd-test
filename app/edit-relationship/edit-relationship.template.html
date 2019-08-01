@@ -55,10 +55,8 @@
                     </label>
 
 
-                    <select name="matter" id="matter" ng-options="matter.name for matter in matters track by matter.id"
-                        ng-model="matter_selected"></select>
-
-
+                    <select name="matter" id="matter" ng-model="relationship_map[teacher_selected.id].matter_selected" ng-options="matter.name for matter in matters track by matter.id"
+                        ></select>
                 </div>
             </div>
 
@@ -67,7 +65,8 @@
 
 
 
-            <div ng-repeat="degree in relationship_map[teacher_selected.id].degrees">
+            <!-- <div ng-repeat="degree in relationship_map[teacher_selected.id].degrees"> -->
+            <div ng-repeat="degree in degrees">
 
 
 
@@ -79,7 +78,8 @@
 
 
                         <select name="degree" disabled>
-                            <option value="degree.degreeId">{{degreesMap[degree.degreeId]}}</option>
+                            <!-- <option value="degree.degreeId">{{degreesMap[degree.degreeId]}}</option> -->
+                            <option value="degree.degreeId">{{degree.name}}</option>
                         </select>
 
 
@@ -94,9 +94,13 @@
                             </label> -->
 
                         <!-- <md-checkbox ng-checked="isChecked(class.id, degree.classes_map)" > -->
-                        <md-checkbox ng-model="degree.classes_map[class.id].checked" value="class.id">
+                        <!-- <md-checkbox ng-model="degree.classes_map[class.id].checked" value="class.id"> -->
+                        <md-checkbox ng-model="relationship_map[teacher_selected.id].degree_map[degree.id].classes_map[class.id].checked" value="class.id">
                             {{class.name}}
                         </md-checkbox>
+                        teacher_selected {{teacher_selected.id}}
+                        degree {{degree.id}}
+                        {{relationship_map[teacher_selected.id].degree_map[degree.id].classes_map[class.id].checked}}
 
                     </div>
                 </div>
@@ -163,12 +167,12 @@
             </div> -->
         </form>
     </div>
-    <!-- <div class="modal-footer model-grey-color">
-        <button class="btn btn-success" ng-click="updateStudent()">
+    <div class="modal-footer model-grey-color">
+        <button class="btn btn-success" ng-click="updateRelationships()">
             <ion-icon name="save"></ion-icon>Update
         </button>
         <button class="btn btn-danger" ng-click="cancelModal()">
             <ion-icon name="close"></ion-icon>Close
         </button>
-    </div> -->
+    </div>
 </div>

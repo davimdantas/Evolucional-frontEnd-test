@@ -48,26 +48,26 @@ angular.module("teacherList").component("teacherList", {
 
             //  })
 
-            this.degrees.$promise.then(function () {
+            this.degrees.$promise.then(function() {
                 degrees.forEach(item => (degreesMap[item.id] = item.name));
             });
 
-            this.matters.$promise.then(function () {
+            this.matters.$promise.then(function() {
                 matters.forEach(item => (mattersMap[item.id] = item.name));
             });
 
-            this.classes.$promise.then(function () {
+            this.classes.$promise.then(function() {
                 classes.classes.forEach(
                     item => (classesMap[item.id] = item.name)
                 );
             });
 
-            this.teachers.$promise.then(function () {
+            this.teachers.$promise.then(function() {
                 teachers.forEach(item => (teachersMap[item.id] = item.name));
             });
 
-            this.relationships.$promise.then(function () {
-                let empty_class_map = {}
+            this.relationships.$promise.then(function() {
+                let empty_class_map = {};
                 for (let i = 0; i < classes.classes.length; i++) {
                     const school_class = classes.classes[i];
                     empty_class_map[school_class.id] = {
@@ -75,12 +75,21 @@ angular.module("teacherList").component("teacherList", {
                         checked: false
                     };
                 }
+                let teachers_id = {};
+                let empty_degree_map = {};
                 for (let i = 0; i < relationships.length; i++) {
                     const relationship = relationships[i];
+                    relationship["checked"] = true;
+
+                    teachers_id[relationship.teacherId] = true;
                     relationship.teacher_name =
                         teachersMap[relationship.teacherId];
                     relationship.matter_name =
                         mattersMap[relationship.matterId];
+                    relationship.matter_selected = {
+                        id: relationship.matterId,
+                        name: relationship.matter_name
+                    };
                     let degrees_map = {};
                     for (let j = 0; j < relationship.degrees.length; j++) {
                         const degree = relationship.degrees[j];
@@ -91,20 +100,20 @@ angular.module("teacherList").component("teacherList", {
                             const school_class = degree.classes[l];
                             classes_names +=
                                 classesMap[
-                                school_class.classPosition ||
-                                school_class.classId
+                                    school_class.classPosition ||
+                                        school_class.classId
                                 ] + " ";
                             classes_map[
                                 school_class.classPosition ||
-                                school_class.classId
+                                    school_class.classId
                             ] = {
-                                    name:
-                                        classesMap[
+                                name:
+                                    classesMap[
                                         school_class.classPosition ||
-                                        school_class.classId
-                                        ],
-                                    checked: true
-                                };
+                                            school_class.classId
+                                    ],
+                                checked: true
+                            };
                         }
                         for (let i = 0; i < classes.classes.length; i++) {
                             const school_class = classes.classes[i];
@@ -121,21 +130,63 @@ angular.module("teacherList").component("teacherList", {
                     }
                     for (let i = 0; i < degrees.length; i++) {
                         const degree = degrees[i];
+                        empty_degree_map[degree.id] = {
+                            classes: [],
+                            classes_map: angular.copy(empty_class_map),
+                            degree_name: degree.name,
+                            checked: false
+                        };
                         if (!degrees_map.hasOwnProperty(degree.id))
                             degrees_map[degree.id] = {
                                 classes: [],
-                                classes_map: empty_class_map,
+                                classes_map: angular.copy(empty_class_map),
                                 degree_name: degree.name,
                                 checked: false
                             };
                     }
-                    relationship.degree_map = degrees_map
+                    relationship.degree_map = degrees_map;
                 }
+                console.log("teachers_id:", teachers_id);
+                for (let i = 0; i < teachers.length; i++) {
+                    const teacher = teachers[i];
+                    if (!teachers_id.hasOwnProperty(teacher.id)) {
+                        // let relation = {}
+                        // relation[teacher.id] = {
+                        //     degree_map: empty_degree_map,
+                        //     degrees: [],
+                        //     id: teacher.id,
+                        //     matterId: null,
+                        //     matter_name: null,
+                        //     teacherId: teacher.id,
+                        //     teacher_name: teacher.name,
+                        //     classes: [],
+                        //     // classes_map: angular.copy(empty_class_map),
+                        //     // degree_name: degree.name,
+                        //     checked: false
+                        // }
+                        relationships.push({
+                            degree_map: angular.copy(empty_degree_map),
+                            degrees: [],
+                            id: teacher.id,
+                            matterId: null,
+                            matter_name: null,
+                            matter_selected: { id: null, name: null },
+
+                            teacherId: teacher.id,
+                            teacher_name: teacher.name,
+                            classes: [],
+                            // classes_map: angular.copy(empty_class_map),
+                            // degree_name: degree.name,
+                            checked: false
+                        });
+                    }
+                }
+                console.log("relationships:", relationships);
             });
 
             this.orderProp = "name";
 
-            this.showStudents = function (id, name) {
+            this.showStudents = function(id, name) {
                 let modalInstance = $modal.open({
                     animation: false,
                     templateUrl:
@@ -143,14 +194,14 @@ angular.module("teacherList").component("teacherList", {
                     controller: "studentByDegree",
                     size: "",
                     resolve: {
-                        degree: function () {
+                        degree: function() {
                             return [id, name];
                         }
                     }
                 });
 
                 modalInstance.result.then(
-                    function (response) {
+                    function(response) {
                         if (!response) {
                         } else if (response) {
                             response.class_name = classesMap[response.classId];
@@ -165,18 +216,18 @@ angular.module("teacherList").component("teacherList", {
                                     degree: initial_state.degreeId
                                 },
                                 initial_state,
-                                function (response) { }
+                                function(response) {}
                             );
                         }
                     },
-                    function () {
+                    function() {
                         console.log("canceled");
                     }
                 );
                 //  });
             };
 
-            this.createRelationship = function (
+            this.createRelationship = function(
                 degreesMap,
                 mattersMap,
                 classesMap,
@@ -184,10 +235,13 @@ angular.module("teacherList").component("teacherList", {
                 relationships,
                 teachers,
                 matters,
-                classes
+                classes,
+                degrees
             ) {
                 // let degreesMap = this.degreesMap;
                 // console.log('degreesMap:', degreesMap)
+               let relationship_map = {};
+                relationships.forEach(item => (relationship_map[item.teacherId] = item));
                 let modalInstance = $modal.open({
                     animation: false,
                     templateUrl:
@@ -195,7 +249,7 @@ angular.module("teacherList").component("teacherList", {
                     controller: "EditRelationshipController",
                     size: "",
                     resolve: {
-                        relationship_utils: function () {
+                        relationship_utils: function() {
                             return {
                                 degreesMap: degreesMap,
                                 mattersMap: mattersMap,
@@ -204,14 +258,16 @@ angular.module("teacherList").component("teacherList", {
                                 relationships: relationships,
                                 teachers: teachers,
                                 matters: matters,
-                                classes: classes
+                                classes: classes,
+                                degrees: degrees,
+                                relationship_map: relationship_map
                             };
                         }
                     }
                 });
 
                 modalInstance.result.then(
-                    function (response) {
+                    function(response) {
                         if (!response) {
                         } else if (response) {
                             response.class_name = classesMap[response.classId];
@@ -226,11 +282,11 @@ angular.module("teacherList").component("teacherList", {
                                     degree: initial_state.degreeId
                                 },
                                 initial_state,
-                                function (response) { }
+                                function(response) {}
                             );
                         }
                     },
-                    function () {
+                    function() {
                         console.log("canceled");
                     }
                 );
