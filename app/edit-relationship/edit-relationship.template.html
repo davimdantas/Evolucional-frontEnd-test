@@ -72,40 +72,34 @@
 
 
                 <div class="form-group">
-                        <div class=" input-group col-sm-12">
-                            <label
-                                class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label"
-                            >
-                                Degree:
-                            </label>
+                    <div class=" input-group col-sm-12">
+                        <label class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">
+                            Degree:
+                        </label>
 
 
-                            <select
-                                name="degree"
-                                disabled
-                                >
-                                <option value="degree.degreeId">{{degreesMap[degree.degreeId]}}</option>
-                            </select>
+                        <select name="degree" disabled>
+                            <option value="degree.degreeId">{{degreesMap[degree.degreeId]}}</option>
+                        </select>
 
 
-                        </div>
-                        <div ng-repeat="class in classes.classes">
-                            <!-- <h5>
+                    </div>
+                    <div ng-repeat="class in classes.classes">
+                        <!-- <h5>
                              {{class.name}}
 
                             </h5> -->
-                            <!-- <label>{{class.name}}
+                        <!-- <label>{{class.name}}
                                     <input type="checkbox" >
                             </label> -->
 
-                            <!-- <md-checkbox ng-checked="isChecked(class.id, degree.classes_map)" > -->
-                            <md-checkbox ng-model="degree.classes_map[class.id].checked"  value="class.id">
-                                {{class.name}}
-                                  </md-checkbox>
-                                  {{degree.classes_map[class.id].checked}}
+                        <!-- <md-checkbox ng-checked="isChecked(class.id, degree.classes_map)" > -->
+                        <md-checkbox ng-model="degree.classes_map[class.id].checked" value="class.id">
+                            {{class.name}}
+                        </md-checkbox>
 
-                        </div>
                     </div>
+                </div>
 
 
 
