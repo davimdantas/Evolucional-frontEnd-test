@@ -61,26 +61,13 @@
 
                 </div>
             </div>
-            <div class="form-group">
-                <div class=" input-group col-sm-12">
-                    <label for="matter" class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">
-                        Matter:
-                    </label>
 
-
-                    <select name="matter" id="matter" ng-options="matter.name for matter in matters track by matter.id"
-                        ng-model="matter_selected"></select>
-
-
-                </div>
-            </div>
             <!-- <h2>Matter: {{relationship_map[teacher_selected.id].matter_name}}</h2> -->
-            <h2>Matter: {{matter_selected | json}}</h2>
+            <!-- <h2>Matter: {{matter_selected | json}}</h2> -->
 
 
 
-            <div class="row" ng-repeat="degree in relationship_map[teacher_selected.id].degrees">
-                {{degree}}
+            <div ng-repeat="degree in relationship_map[teacher_selected.id].degrees">
 
 
 
@@ -89,17 +76,34 @@
                             <label
                                 class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label"
                             >
-                                Matter:
+                                Degree:
                             </label>
-        
-                            
+
+
                             <select
                                 name="degree"
-                                aria-readonly="true">
-                                <option value="volvo">{{degree.degreeId}}</option>
+                                disabled
+                                >
+                                <option value="degree.degreeId">{{degreesMap[degree.degreeId]}}</option>
                             </select>
-        
-                                
+
+
+                        </div>
+                        <div ng-repeat="class in classes.classes">
+                            <!-- <h5>
+                             {{class.name}}
+
+                            </h5> -->
+                            <!-- <label>{{class.name}}
+                                    <input type="checkbox" >
+                            </label> -->
+
+                            <!-- <md-checkbox ng-checked="isChecked(class.id, degree.classes_map)" > -->
+                            <md-checkbox ng-model="degree.classes_map[class.id].checked"  value="class.id">
+                                {{class.name}}
+                                  </md-checkbox>
+                                  {{degree.classes_map[class.id].checked}}
+
                         </div>
                     </div>
 
@@ -116,7 +120,7 @@
                         Teacher:
                     </label>
 
-                    
+
                     <select
                         name="teacher_name"
                         id="teacher_name"
@@ -136,7 +140,7 @@
                         Degree:
                     </label>
 
-                    
+
                     <select
                         name="degree_name"
                         id="degree_name"

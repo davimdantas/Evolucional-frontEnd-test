@@ -39,6 +39,7 @@ editRelationship.controller("EditRelationshipController", function(
     $scope.relationships = relationship_utils.relationships;
     $scope.matters = relationship_utils.matters;
     $scope.teachers = relationship_utils.teachers;
+    $scope.classes = relationship_utils.classes;
     $scope.relationship_map = {};
     $scope.relationships.forEach(item => ($scope.relationship_map[item.teacherId] = item));
 
@@ -51,6 +52,7 @@ editRelationship.controller("EditRelationshipController", function(
         id:  "",
         name:""
     };
+
     $scope.setMatter = function() { 
         console.log('chamado')
         $scope.matter_selected = {
@@ -58,6 +60,17 @@ editRelationship.controller("EditRelationshipController", function(
             name:  $scope.relationship_map[$scope.teacher_selected.id] ?  $scope.relationship_map[$scope.teacher_selected.id].matter_name ?  $scope.relationship_map[$scope.teacher_selected.id].matter_name : null :  ""
         };
     }
+    $scope.setClasss = function() { 
+        console.log('event:', event)
+      
+    }
+    
+    // $scope.isChecked = function(classId, classes_map) { 
+    //     console.log('classes:', classes_map)
+    //     console.log('classId:', classId)
+    //     return classes_map.hasOwnProperty(classId) 
+      
+    // }
     
     
     

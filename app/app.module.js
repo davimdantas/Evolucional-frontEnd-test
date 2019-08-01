@@ -4,6 +4,8 @@
 // let frontEndTestApp = angular.module('frontEndTestApp', [
 angular.module('frontEndTestApp', [
   'ngRoute',
+  'ngMaterial',
+  'ngMessages',
   'core',
   'studentList',
   'teacherList',
