@@ -10,6 +10,8 @@ angular.module("teacherList").component("teacherList", {
         "Relationship",
         "Matter",
         "$uibModal",
+        "$scope",
+        "$route",
         function StudentListController(
             Teacher,
             School_class,
@@ -17,8 +19,10 @@ angular.module("teacherList").component("teacherList", {
             Relationship,
             Matter,
             $modal,
-            $scope
+            $scope,
+            $route
         ) {
+            $scope.$route = $route;
             this.query1 = this.query;
             this.query2 = this.query;
             this.teachers = Teacher.query();
@@ -134,6 +138,7 @@ angular.module("teacherList").component("teacherList", {
                             classes: [],
                             classes_map: angular.copy(empty_class_map),
                             degree_name: degree.name,
+                            degreeId: degree.id,
                             checked: false
                         };
                         if (!degrees_map.hasOwnProperty(degree.id))
@@ -141,7 +146,8 @@ angular.module("teacherList").component("teacherList", {
                                 classes: [],
                                 classes_map: angular.copy(empty_class_map),
                                 degree_name: degree.name,
-                                checked: false
+                                checked: false,
+                                degreeId: degree.id
                             };
                     }
                     relationship.degree_map = degrees_map;
@@ -204,25 +210,9 @@ angular.module("teacherList").component("teacherList", {
                     function(response) {
                         if (!response) {
                         } else if (response) {
-                            response.class_name = classesMap[response.classId];
-                            response.degree_name =
-                                degreesMap[response.degreeId];
-                            angular.copy(response, initial_state);
-                            let student_selected = Student.updateStudent(
-                                {
-                                    id: initial_state.id,
-                                    name: initial_state.name,
-                                    class: initial_state.classId,
-                                    degree: initial_state.degreeId
-                                },
-                                initial_state,
-                                function(response) {}
-                            );
                         }
                     },
-                    function() {
-                        console.log("canceled");
-                    }
+                    function() {}
                 );
                 //  });
             };
@@ -236,12 +226,13 @@ angular.module("teacherList").component("teacherList", {
                 teachers,
                 matters,
                 classes,
-                degrees
+                degrees,
             ) {
-                // let degreesMap = this.degreesMap;
                 // console.log('degreesMap:', degreesMap)
-               let relationship_map = {};
-                relationships.forEach(item => (relationship_map[item.teacherId] = item));
+                let relationship_map = {};
+                relationships.forEach(
+                    item => (relationship_map[item.teacherId] = item)
+                );
                 let modalInstance = $modal.open({
                     animation: false,
                     templateUrl:
@@ -260,7 +251,7 @@ angular.module("teacherList").component("teacherList", {
                                 matters: matters,
                                 classes: classes,
                                 degrees: degrees,
-                                relationship_map: relationship_map
+                                relationship_map: angular.copy(relationship_map)
                             };
                         }
                     }
@@ -270,20 +261,28 @@ angular.module("teacherList").component("teacherList", {
                     function(response) {
                         if (!response) {
                         } else if (response) {
-                            response.class_name = classesMap[response.classId];
-                            response.degree_name =
-                                degreesMap[response.degreeId];
-                            angular.copy(response, initial_state);
-                            let student_selected = Student.updateStudent(
-                                {
-                                    id: initial_state.id,
-                                    name: initial_state.name,
-                                    class: initial_state.classId,
-                                    degree: initial_state.degreeId
-                                },
-                                initial_state,
-                                function(response) {}
+                            angular.copy(response, relationship_map);
+                            // var myFormData = new FormData();
+                            // myFormData.append('relationship_map', JSON.stringify(relationship_map))
+                            // myFormData.append('relationship_map', relationship_map)
+                            let teste = JSON.stringify(relationship_map);
+                            let realationship_update = Relationship.updateRelationship(
+                                teste
                             );
+                            realationship_update.$promise.then(function() {
+                                $scope.$route.reload();
+                            });
+
+                            // let realationship_update = Relationship.updateRelationship(
+                            //     {
+
+                            //     },
+                            //     myFormData,
+                            //     function(response) {
+                            //         console.log('response:', response)
+
+                            //     }
+                            // );
                         }
                     },
                     function() {

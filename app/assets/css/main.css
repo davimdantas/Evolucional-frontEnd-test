@@ -259,6 +259,13 @@ table {
   
 }
 
+.classes_checkboxes {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-around;
+  width: 66%;
+}
+
 @media (max-width: 768px) {
   table.main_table  {
     margin-top: 45px; 
@@ -269,6 +276,10 @@ table {
     padding-top: 30px;
     padding-right: 15px;
     margin: 0;
+  }
+
+  .classes_checkboxes {
+    width: 100%;
   }
 
   .teacher_name {
