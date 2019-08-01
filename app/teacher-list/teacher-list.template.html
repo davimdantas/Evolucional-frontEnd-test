@@ -1,8 +1,8 @@
 <div class="limiter">
-
-        <button class="btn btn-success" ng-click="$ctrl.createRelationship($ctrl.degreesMap, $ctrl.mattersMap, $ctrl.classesMap, $ctrl.teachersMap, $ctrl.relationships, $ctrl.teachers, $ctrl.matters, $ctrl.classes, $ctrl.degrees  )">
-                <ion-icon name="save"></ion-icon>Edit Relationships
-            </button>
+    <button class="btn btn-success"
+        ng-click="$ctrl.createRelationship($ctrl.degreesMap, $ctrl.mattersMap, $ctrl.classesMap, $ctrl.teachersMap, $ctrl.relationships, $ctrl.teachers, $ctrl.matters, $ctrl.classes, $ctrl.degrees  )">
+        <ion-icon name="save"></ion-icon>Edit Relationships
+    </button>
     <div class="container-table100">
         <div class="wrap-table100">
             <p>
@@ -28,44 +28,6 @@
                     <option value="class_name">Class</option>
                 </select>
             </p>
-            
-
-            <!-- <div  ng-repeat="teacher in $ctrl.relationships ">
-                <div>{{teacher | json}}</div>
-            </div> -->
-            <!-- <div class="table teachers">
-                <div class="row header">
-                    <div class="cell">
-                        Teacher Name
-                    </div>
-                    <div class="cell">
-                        Matter
-                    </div>
-                </div>
-
-                <div class="row"
-                    ng-repeat="teacher in $ctrl.teachers | filter:$ctrl.query | filter:$ctrl.query1 | filter:$ctrl.query2 | orderBy:$ctrl.orderProp">
-                    <div class="cell" data-title="Student Name">
-                        {{ teacher.name }}
-                    </div>
-                    <div class="cell" data-title="Degree">
-                        {{ teacher.matterId }}
-                    </div>
-                    <div class="row"
-                        ng-repeat="degree in teacher.degrees | filter:$ctrl.query | filter:$ctrl.query1 | filter:$ctrl.query2 | orderBy:$ctrl.orderProp">
-                        <div class="cell" data-title="Degree">
-                            {{ degree.degree_name }}
-                        </div>
-                    </div>
-                    <div class="cell" data-title="Actions">
-                        <div class="btn-group" role="group" aria-label="...">
-                            <button type="button" class="btn btn-primary" ng-click="$ctrl.editRecord(teacher)">
-                                <ion-icon name="create"></ion-icon>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
 
             <!-- Division -->
             <table class="table main_table teachers">
@@ -82,11 +44,8 @@
                     <td class="teacher_name">{{teacher.teacher_name }}
                     </td>
                     <td>{{teacher.matter_name }}</td>
-                    <!-- <td>{{teacher.degrees.length}}</td> -->
 
-                    <!-- ng-if="teacher.degrees.length > 0" -->
-                   
-                    <td class="subTable"  ng-if="teacher.degrees.length > 0" ->
+                    <td class="subTable" ng-if="teacher.degrees.length > 0" ->
                         <table cellpadding="0" cellspacing="0">
                             <tr class="subTable_header">
                                 <th>Degree</th>
@@ -94,37 +53,26 @@
                             </tr>
                             <tbody
                                 ng-repeat="degree in teacher.degrees | filter:$ctrl.query2 | orderBy:$ctrl.orderProp">
-                                <tr >
+                                <tr>
                                     <td>{{degree.degree_name }}
-                           
-                                            <div class="show_students" >
-                                                    <button
-                                                    id="show_students"
-                                                        type="button"
-                                                        class="btn btn-primary"
-                                                        ng-click="$ctrl.showStudents(degree.degreeId, degree.degree_name)"
-                                                    >
-                                                        <ion-icon name="book"></ion-icon>
-                                                    </button>
-                                                </div>
+
+                                        <div class="show_students">
+                                            <button id="show_students" type="button" class="btn btn-primary"
+                                                ng-click="$ctrl.showStudents(degree.degreeId, degree.degree_name)">
+                                                <ion-icon name="book"></ion-icon>
+                                            </button>
+                                        </div>
                                     </td>
-                                    <td class="class_name" >{{degree.classes_names}}</td>
-                                    <!-- <td>{{degree.classes }}</td> -->
+                                    <td class="class_name">{{degree.classes_names}}</td>
                                 </tr>
                             </tbody>
                         </table>
                     </td>
-                    <td ng-if="!(teacher.degrees.length > 0)" >-</td>
-                    
+                    <td ng-if="!(teacher.degrees.length > 0)">-</td>
+
                     </tr>
                 </tbody>
-
-
-
             </table>
-
-
-
         </div>
     </div>
 </div>

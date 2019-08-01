@@ -56,7 +56,6 @@ module.exports.updateStudent = function (req, res, next) {
     }
 };
 module.exports.updateRelationship = function (req, res, next) {
-    // res.render()
     let body = "";
     let new_relationships = [];
     req.on("data", chunk => {

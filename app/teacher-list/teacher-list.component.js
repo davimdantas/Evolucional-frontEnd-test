@@ -44,14 +44,6 @@ angular.module("teacherList").component("teacherList", {
             let classesMap = this.classesMap;
             this.teachersMap = {};
             let teachersMap = this.teachersMap;
-
-            // $q.all([
-            //     doQuery('billing'),
-            //     doQuery('shipping')
-            //  ]).then(function(data) {
-
-            //  })
-
             this.degrees.$promise.then(function() {
                 degrees.forEach(item => (degreesMap[item.id] = item.name));
             });
@@ -152,24 +144,9 @@ angular.module("teacherList").component("teacherList", {
                     }
                     relationship.degree_map = degrees_map;
                 }
-                console.log("teachers_id:", teachers_id);
                 for (let i = 0; i < teachers.length; i++) {
                     const teacher = teachers[i];
                     if (!teachers_id.hasOwnProperty(teacher.id)) {
-                        // let relation = {}
-                        // relation[teacher.id] = {
-                        //     degree_map: empty_degree_map,
-                        //     degrees: [],
-                        //     id: teacher.id,
-                        //     matterId: null,
-                        //     matter_name: null,
-                        //     teacherId: teacher.id,
-                        //     teacher_name: teacher.name,
-                        //     classes: [],
-                        //     // classes_map: angular.copy(empty_class_map),
-                        //     // degree_name: degree.name,
-                        //     checked: false
-                        // }
                         relationships.push({
                             degree_map: angular.copy(empty_degree_map),
                             degrees: [],
@@ -187,7 +164,6 @@ angular.module("teacherList").component("teacherList", {
                         });
                     }
                 }
-                console.log("relationships:", relationships);
             });
 
             this.orderProp = "name";
@@ -226,9 +202,8 @@ angular.module("teacherList").component("teacherList", {
                 teachers,
                 matters,
                 classes,
-                degrees,
+                degrees
             ) {
-                // console.log('degreesMap:', degreesMap)
                 let relationship_map = {};
                 relationships.forEach(
                     item => (relationship_map[item.teacherId] = item)
@@ -262,9 +237,6 @@ angular.module("teacherList").component("teacherList", {
                         if (!response) {
                         } else if (response) {
                             angular.copy(response, relationship_map);
-                            // var myFormData = new FormData();
-                            // myFormData.append('relationship_map', JSON.stringify(relationship_map))
-                            // myFormData.append('relationship_map', relationship_map)
                             let teste = JSON.stringify(relationship_map);
                             let realationship_update = Relationship.updateRelationship(
                                 teste
@@ -272,24 +244,12 @@ angular.module("teacherList").component("teacherList", {
                             realationship_update.$promise.then(function() {
                                 $scope.$route.reload();
                             });
-
-                            // let realationship_update = Relationship.updateRelationship(
-                            //     {
-
-                            //     },
-                            //     myFormData,
-                            //     function(response) {
-                            //         console.log('response:', response)
-
-                            //     }
-                            // );
                         }
                     },
                     function() {
                         console.log("canceled");
                     }
                 );
-                //  });
             };
         }
     ]
