@@ -87,7 +87,7 @@ angular.module("studentList").component("studentList", {
                         labels: label_char,
                         datasets: [
                             {
-                                label: "My First dataset",
+                                label: "Students Distribution",
                                 backgroundColor: "rgb(255, 99, 132)",
                                 borderColor: "rgb(255, 99, 132)",
                                 data: degrees_distribution
