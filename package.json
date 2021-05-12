@@ -11,7 +11,7 @@
     "angular-route": "1.7.x",
     "angular-ui-bootstrap": "^2.5.6",
     "bootstrap": "4.3.x",
-    "chart.js": "^2.8.0",
+    "chart.js": "^2.9.4",
     "jquery": "3.4.x",
     "popper.js": "^1.15.0"
   },
